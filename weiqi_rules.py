@@ -1,4 +1,7 @@
-def alive(board,x,y,z):#ÅĞ¶ÏÏàÓ¦Î»ÖÃµÄÆå×ÓËÀ»î,z=0³õÊ¼£¬z=1ÏòÉÏÀ©Õ¹£¬z=2,ÏòÏÂÀ©Õ¹£¬z=3,Ïò×óÀ©Õ¹£¬z=4,ÏòÓÒÀ©Õ¹
+import sys
+sys.setrecursionlimit(9000000)
+
+def alive(board,x,y,z):#åˆ¤æ–­ç›¸åº”ä½ç½®çš„æ£‹å­æ­»æ´»,z=0åˆå§‹ï¼Œz=1å‘ä¸Šæ‰©å±•ï¼Œz=2,å‘ä¸‹æ‰©å±•ï¼Œz=3,å‘å·¦æ‰©å±•ï¼Œz=4,å‘å³æ‰©å±•
     if board[x][addone(y)]==2 or board[x][subtractone(y)]==2 or board[addone(x)][y]==2 or board[subtractone(x)][y]==2:
         return True
     if board[x][addone(y)]==1-board[x][y] and board[x][subtractone(y)]==1-board[x][y] and board[addone(x)][y]==1-board[x][y] and board[subtractone(x)][y]==1-board[x][y]:
