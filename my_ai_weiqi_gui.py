@@ -1,7 +1,6 @@
-﻿import tkinter as tk
+import tkinter as tk
 import weiqi_rules as rule
 import copy
-import ctypes
 
 class qipan():
     def __init__(self):    
@@ -16,6 +15,8 @@ class qipan():
         self.board_window.geometry('700x700')
         close_button=tk.Button(self.board_window,text="关闭",command=self.board_window.quit)
         close_button.pack(side="bottom")
+        clear_button=tk.Button(self.board_window,text="清空",command=self.clear)
+        clear_button.pack(side="bottom")
         board_canvas_size=540
         self.board_canvas = tk.Canvas(self.board_window, bg='goldenrod', height=board_canvas_size+80, width=board_canvas_size+80)
 
@@ -60,14 +61,27 @@ class qipan():
     
     def judge(self):
         tempboard=copy.deepcopy(self.board)
+        isalive = rule.live(self.board)
         for i in range(19):
             for j in range(19):
                 if self.board[i][j] != 2:
-                    isalive=rule.alive(self.board,i,j,0)
-                    if isalive== False: #棋子没有气了
+                    # isalive=rule.live(self.board,i,j)
+                    if isalive[(i,j)]== False: #棋子没有气了
                         self.board_canvas.delete(self.id[(i,j)])
                         tempboard[i][j]=2
         self.board=copy.deepcopy(tempboard)
+
+    def clear(self):
+        for x in self.id.keys():
+                self.board_canvas.delete(self.id[x])
+        for i in range(19):
+            for j in range(19):
+                self.board[i][j]=2
+        self.steps=[]
+        self.id={}
+        self.board_canvas.bind("<Button-1>",self.callback)
+        self.board_canvas.pack()
+        self.board_window.mainloop()
         
 def main():
     m=qipan()
